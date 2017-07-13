@@ -27,8 +27,16 @@ class Server {
   
   // application config
   public config() {
-    const MONGO_URI: string = 'mongodb://localhost/local'; 
-    mongoose.connect(MONGO_URI || process.env.MONGODB_URI);
+    const MONGO_URI: string = 'mongodb://localhost/test';
+    
+    // mongoose.connect(MONGO_URI);
+    // mongoose.connect(MONGO_URI || process.env.MONGODB_URI);
+
+    var MongoDB = mongoose.connect(MONGO_URI).connection;
+    MongoDB.on('error', function(err) { console.log("mongodb error::"+err.message); });
+    MongoDB.once('open', function() {
+        console.log("mongodb connection open");
+    });
 
     // express middleware
     this.app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,7 +49,7 @@ class Server {
 
     // cors
     this.app.use((req, res, next) => {
-      res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+      res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
       res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials');
       res.header('Access-Control-Allow-Credentials', 'true');
