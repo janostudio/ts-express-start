@@ -41,11 +41,11 @@ mongodb://host1,host2,host3/?connect=direct;slaveOk=true
 mongo //进入数据库  
 use newdbs //创建项目数据库   
 db.createUser({
-    user:"wxapi",
-    pwd:"Wxapi.$0dollar",
+    user:"newdbsuser",
+    pwd:"newdbspwd",
     roles:[{
         role:"readWrite",
-        db:"wxapi"
+        db:"newdbs"
     }]
 }) 
 db.createCollection("users")   

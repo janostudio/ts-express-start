@@ -10,7 +10,7 @@ import * as path from 'path';
 
 
 // custom modules
-import PostRouter from './router/PostRouter';
+import IndexRoute from './router/index';
 
 
 // Server class
@@ -63,9 +63,11 @@ class Server {
 
     let router: express.Router;
     router = express.Router();
+    //IndexRoute
+    IndexRoute.create(router);
 
-    this.app.use('/', router);
-    this.app.use('/api/v1/posts', PostRouter);
+    //use router middleware
+    this.app.use(router);
   }
 }
 
